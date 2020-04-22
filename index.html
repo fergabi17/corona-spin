@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Corona Spin Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="assets/js/cs-game.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="row">
+            <div class="col-12 col-xl-8 offset-xl-2 header">
+                <div class="game-name text-center">Corona Spin Game</div>
+                <nav>
+                    <ul class="text-center">
+                        <li><a href="how-to-play.html" class="menu-item">How to Play</a></li>
+                        <li><a href="index.html" class="menu-item active-menu">Game</a></li>
+                        <li><a href="leaderboard" class="menu-item">Leaderboard</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="row">
+            <div class="col-12 col-xl-8 offset-xl-2 content">
+                <div class="info-box text-center">
+                    <p>What should we call you? <input type="text" id="players-name"></p>
+                    
+                    <p>year you were born: <input type="text" id="players-year"></p>
+                    
+                    <a href="game.html"><button onclick="startGame()">Play</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
