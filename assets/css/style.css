@@ -9,6 +9,37 @@ body{
 }
 
 .content{
-    background-color: rgb(43, 21, 21);
+    background-color: rgb(154, 107, 107);
     height: 85vh;
+}
+
+
+ /* --------------------------------------------------------- Slot Machine */
+
+ .slots {
+    background-color: rgb(255, 255, 255);
+    width: 200px;
+    height: 400px;
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+
+.hand-wash{
+    background-image: url("hand-wash.png");
+}
+
+.hug{
+    background-image: url("hug.png");
+}
+
+.cough{
+    background-image: url("cough.png");
+}
+
+.hand-to-face{
+    background-image: url("cough.png");
+}
+
+.alcool{
+    background-image: url("cough.png");
 }

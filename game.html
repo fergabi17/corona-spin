@@ -3,14 +3,20 @@
 
 <head>
     <title>Corona Spin Game</title>
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Styles -->
+        <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Phone view -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    <!-- Script -->
     <script src="assets/js/cs-game.js"></script>
 </head>
 
-<body>
+<body onload="setGame()">
 
     <header>
         <div class="row">
@@ -31,7 +37,23 @@
         <div class="row">
             <div class="col-12 col-xl-8 offset-xl-2 content">
                 <div class="info-box text-center">
-                    <h1>Game</h1>
+                    <!-- ***************************************** SLOTS -->
+                    <div class="row">
+                        <div class="col-11 slots-container">
+                            <div id="slot-1" class="col-4 slots">0</div>
+                            <div id="slot-2" class="col-4 slots">0</div>
+                            <div id="slot-3" class="col-4 slots">0</div>
+                        </div>
+                        <div class="col-1">
+                            <div id="round-score" class="slot-score">
+                                0000
+                            </div>
+                            <button onclick="spin()">Spin</button>
+                            <div id="players-score" class="slot-score">
+                                    0000
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
