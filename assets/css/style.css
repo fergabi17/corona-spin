@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 
 body{
-    background-color: rgb(101, 22, 22);
+    background-image: url("images/background.png");
 }
 
 .header {
@@ -14,7 +15,12 @@ body{
 }
 
 
- /* --------------------------------------------------------- Slot Machine */
+ /* --------------------------------------------------------- SLOT MACHINE */
+
+ .slots-container{
+    background-image: url("images/slots-background.png");
+    padding: 0;
+}
 
  .slots {
     background-color: rgb(255, 255, 255);
@@ -22,6 +28,7 @@ body{
     height: 400px;
     display: inline-block;
     background-repeat: no-repeat;
+    margin: 0;
 }
 
 .hand-wash{
@@ -37,9 +44,83 @@ body{
 }
 
 .hand-to-face{
-    background-image: url("cough.png");
+    background-image: url("hand-to-face.png");
 }
 
 .alcool{
-    background-image: url("cough.png");
+    background-image: url("alcool.png");
+}
+
+ /* --------------------------------------------------------- SCORE SLOTS */
+.score-background{
+    background-image: url("images/score-background.png");
+}
+
+.score-info-box{
+    /*background-color: rgba(255, 255, 255, 0.2);*/
+    border: 2px outset #000;
+    float: left;
+}
+
+.score-info-box p{
+    display: inline;
+    color: #fff;
+}
+
+.score-slot{
+    border: 1px outset #000;
+    background-image: url("images/slots-background.png");
+    height:120%;
+    width:50%;
+    margin: auto;
+    text-align: right;
+    /*display: inline;*/
+    color: #fff;
+}
+
+#main-bet-value{
+    font-family: 'Alfa Slab One', cursive;
+    color: red !important;
+    font-size: 28px;
+    background-color: #fff;
+    width: 70px;
+    height: 70px;
+}
+
+
+
+#main-bet-value>span{
+    font-size: 8pt;
+    font-weight: 300;
+    position: relative; 
+    top: -1em;
+}
+
+
+
+/* ------------------------------------------------- Bet multiplier*/
+.bet-multiplier{
+    border: 1px outset #000;
+    background-color: #fff;
+    height:70px;
+    width:70px;
+    cursor:pointer;
+    box-align: center;
+}
+
+.bet-multiplier-active {
+    background-color: darkgrey;
+}
+
+.spin-button{
+    border-radius: 50%;
+    background-color: rgb(167, 28, 3);
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
 }

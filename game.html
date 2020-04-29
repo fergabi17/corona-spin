@@ -7,16 +7,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Styles -->
-        <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- Phone view -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"
+        integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
     <!-- Script -->
     <script src="assets/js/cs-game.js"></script>
 </head>
 
-<body onload="setGame()">
+<body onload="slotMachine.setGame()">
 
     <header>
         <div class="row">
@@ -39,21 +40,61 @@
                 <div class="info-box text-center">
                     <!-- ***************************************** SLOTS -->
                     <div class="row">
-                        <div class="col-11 slots-container">
-                            <div id="slot-1" class="col-4 slots">0</div>
-                            <div id="slot-2" class="col-4 slots">0</div>
-                            <div id="slot-3" class="col-4 slots">0</div>
+                        <div class="col-12 slots-container">
+                            <div id="slot-1" class="col-4 slots"></div>
+                            <div id="slot-2" class="col-4 slots"></div>
+                            <div id="slot-3" class="col-4 slots"></div>
                         </div>
-                        <div class="col-1">
-                            <div id="round-score" class="slot-score">
-                                0000
-                            </div>
-                            <button onclick="spin()">Spin</button>
-                            <div id="players-score" class="slot-score">
+                    </div>
+
+                    <!-- ****************************************** SCORE -->
+                    <div class="row">
+                        <div class="col-12 score-background">
+
+                            <div class="col-5 score-info-box">
+                                <p class="score-text">Round score:</p>
+                                <div id="round-score" class="score-slot">
                                     0000
+                                </div>
+                            </div>
+
+                            <div class="col-2 score-info-box" id="main-bet-value">
+                               2<span>pt</span>
+                            </div>
+
+                            <div class="col-5 score-info-box">
+                                <p>Player's score:</p>
+                                <div id="players-score" class="score-slot">
+                                    0000
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- ********************************** BET MULTIPLIERS -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="bet-multiplier bet-multiplier-active" id="betx1"
+                                onclick="slotMachine.betMultiplier(1)">x1</button>
+                            <button class="bet-multiplier" id="betx2" onclick="slotMachine.betMultiplier(2)">x2</button>
+                            <button class="bet-multiplier" id="betx4" onclick="slotMachine.betMultiplier(4)">x4</button>
+                            <button class="bet-multiplier" id="betx6" onclick="slotMachine.betMultiplier(6)">x6</button>
+                            <button class="bet-multiplier" id="betx8" onclick="slotMachine.betMultiplier(8)">x8</button>
+                            <button class="bet-multiplier" id="betx10"
+                                onclick="slotMachine.betMultiplier(10)">x10</button>
+
+                            <button class="spin-button" onclick="spin(slotMachine)">Spin</button>
+                        </div>
+                    </div>
+
+                    <!-- ********************************************* END GAME BUTTONS -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="end-game" id="restart-game">Restart Game</button>
+                            <button class="end-game" id="end-game">End Game</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
