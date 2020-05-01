@@ -13,14 +13,13 @@
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.5.0.js"
         integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
-    <!-- Script -->
-    <script src="assets/js/cs-game.js"></script>
+    
 </head>
 
 <body onload="slotMachine.setGame()">
 
     <header>
-        <div class="row">
+        <div class="row no-gutters">
             <div class="col-12 col-xl-8 offset-xl-2 header">
                 <div class="game-name text-center">Corona Spin Game</div>
                 <nav>
@@ -35,15 +34,16 @@
     </header>
 
     <section>
-        <div class="row">
+        <div class="row no-gutters">
             <div class="col-12 col-xl-8 offset-xl-2 content">
+                
                 <div class="info-box text-center">
                     <!-- ***************************************** SLOTS -->
                     <div class="row">
                         <div class="col-12 slots-container">
-                            <div id="slot-1" class="col-4 slots"></div>
-                            <div id="slot-2" class="col-4 slots"></div>
-                            <div id="slot-3" class="col-4 slots"></div>
+                            <div id="slot-1" class="col-4 slots"><div class="slot-lid"></div></div>
+                            <div id="slot-2" class="col-4 slots"><div class="slot-lid"></div></div>
+                            <div id="slot-3" class="col-4 slots"><div class="slot-lid"></div></div>
                         </div>
                     </div>
 
@@ -54,20 +54,23 @@
                             <div class="col-5 score-info-box">
                                 <p class="score-text">Round score:</p>
                                 <div id="round-score" class="score-slot">
-                                    0000
+                                    00000
                                 </div>
                             </div>
 
-                            <div class="col-2 score-info-box" id="main-bet-value">
-                               2<span>pt</span>
+                            <div class="col-2 score-info-box">
+                                <div id="initial-bet-box">
+                                    <p id="initial-bet-value">2</p><p id="points-superscript">pt</p>
+                                </div>   
                             </div>
 
                             <div class="col-5 score-info-box">
-                                <p>Player's score:</p>
+                                <p class="score-text">Player's score:</p>
                                 <div id="players-score" class="score-slot">
-                                    0000
+                                    00000
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -90,8 +93,8 @@
                     <!-- ********************************************* END GAME BUTTONS -->
                     <div class="row">
                         <div class="col-12">
-                            <button class="end-game" id="restart-game">Restart Game</button>
-                            <button class="end-game" id="end-game">End Game</button>
+                            <button class="end-game" id="restart-game" onClick="window.location.reload();">Restart Game</button>
+                            <button class="end-game" id="end-game" onclick="endGame(leaderboard)">Put this score on the leaderboard</button>
                         </div>
                     </div>
 
@@ -99,6 +102,9 @@
             </div>
         </div>
     </section>
+
+    <!-- Script -->
+    <script src="assets/js/cs-game.js"></script>
 </body>
 
 </html>

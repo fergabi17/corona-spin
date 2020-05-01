@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab+Highlight:wght@700&display=swap');
 
 body{
     background-image: url("images/background.png");
@@ -23,32 +24,77 @@ body{
 }
 
  .slots {
-    background-color: rgb(255, 255, 255);
+    background-color: #fff;
     width: 200px;
     height: 400px;
+    border-radius: 10px;
     display: inline-block;
     background-repeat: no-repeat;
+    background-size: 100%;
     margin: 0;
+    padding: 0;
+}
+
+.slot-lid{
+    width: 100%;
+    height: 100%;
+    
+    border-radius: inherit;
+    background: rgb(220,220,233);
+background: linear-gradient(180deg, rgba(220,220,233,1) 0%, rgba(220,220,233,0.4629202022605917) 20%, rgba(220,220,233,0) 50%, rgba(220,220,233,0.42930675688244047) 80%, rgba(220,220,233,1) 100%);
 }
 
 .hand-wash{
     background-image: url("hand-wash.png");
+    transition: all 10s ease-in-out;
+    -moz-transition: all 10s ease-in-out;
+    -webkit-transition: all 10s ease-in-out;
 }
 
 .hug{
     background-image: url("hug.png");
+    transition: all 10s ease-in-out;
+    -moz-transition: all 10s ease-in-out;
+    -webkit-transition: all 10s ease-in-out;
 }
 
 .cough{
     background-image: url("cough.png");
+    transition: all 10s ease-in-out;
+    -moz-transition: all 10s ease-in-out;
+    -webkit-transition: all 10s ease-in-out;
 }
 
 .hand-to-face{
     background-image: url("hand-to-face.png");
+    transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
 }
 
 .alcool{
     background-image: url("alcool.png");
+    transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+}
+
+.mask{
+    background-image: url("mask.png");
+    transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+}
+
+/* ---------- Slots for phones */
+@media only screen and (max-width: 1000px) {
+   
+    .slots {
+        width: 100px;
+        height: 200px;
+        background-size: 100%;
+    }
+
 }
 
  /* --------------------------------------------------------- SCORE SLOTS */
@@ -56,47 +102,48 @@ body{
     background-image: url("images/score-background.png");
 }
 
-.score-info-box{
-    /*background-color: rgba(255, 255, 255, 0.2);*/
-    border: 2px outset #000;
-    float: left;
+.slot-machine-header{
+    background-image: url("assets/arrow-01.png");
 }
 
-.score-info-box p{
+.score-info-box{
+    float: left;
+    text-align: center;
+}
+
+.score-text{
     display: inline;
     color: #fff;
 }
 
 .score-slot{
-    border: 1px outset #000;
-    background-image: url("images/slots-background.png");
-    height:120%;
-    width:50%;
-    margin: auto;
-    text-align: right;
-    /*display: inline;*/
-    color: #fff;
+    font-family: 'Zilla Slab Highlight', cursive;
+    font-size: 38pt;
+    display: inline-block;
+    color: rgb(0, 0, 0);
 }
 
-#main-bet-value{
-    font-family: 'Alfa Slab One', cursive;
-    color: red !important;
-    font-size: 28px;
+#initial-bet-box{
+    display: inline-block;
+    color: red;
     background-color: #fff;
     width: 70px;
     height: 70px;
+    font-family: 'Alfa Slab One', cursive;
+    padding-top: 15px;
 }
 
-
-
-#main-bet-value>span{
-    font-size: 8pt;
-    font-weight: 300;
-    position: relative; 
-    top: -1em;
+#initial-bet-value{
+    font-size: 22pt;
+    display: inline;
+    margin: 0;
 }
 
-
+#points-superscript{
+    font-size: 12pt;
+    display: inline;
+    margin: 0;
+}
 
 /* ------------------------------------------------- Bet multiplier*/
 .bet-multiplier{
