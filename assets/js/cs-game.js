@@ -1,22 +1,24 @@
 var slotMachine = {
-    // Bringing information given at index page to the game
+    // Bring information given at index page to the game
     setGame: function () {
         var playersScore = document.getElementById("players-score");
-        playersScore.innerHTML = getDigits(window.sessionStorage.initialScore);
+        playersScore.innerHTML = padNumber(window.sessionStorage.initialScore);
     },
     slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotPrimeActions: ["hug", "cough", "mask", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotActions: this.slotMainActions,
+    // Decide if the array will include the mask slot according to milliseconds
     getSlotActions: function () {
         var time = new Date().getMilliseconds();
-        if (time % 2 === 0) {
+        if (time % 2 === 0 && time % 5 === 0) {
             this.slotActions = this.slotPrimeActions;
-        } else {
-            this.slotActions = this.slotMainActions;
+            return;
         }
+        this.slotActions = this.slotMainActions;
     },
     betMainValue: 2,
     betMultiplierValue: 1,
+    // Change the betMultiplierValue in this object and in the html
     betMultiplier: function (multiplier) {
         this.betMultiplierValue = Number(multiplier);
         // Make this multiplier the only one with bet-multiplier-active class
@@ -28,35 +30,32 @@ var slotMachine = {
 
 var leaderboard = {
     playersName: window.sessionStorage.getItem("playersName"),
-    getPlayersScore: function (){
+    getPlayersScore: function () {
         return Number(document.getElementById("players-score").innerHTML);
     },
-  
+
     data: [],
-    addScore: function (name, score){
-        // Add the new score to end of 'data'
-		this.data.push([name, score]);
+    addScore: function (name, score) {
+        this.data.push([name, score]);
+        this.data.sort(function (a, b) {
+            return a[1] > b[1];
+        });
 
-		// Sort data by all of the scores
-		this.data.sort(function(a, b) {
-			return a[1] > b[1];
-		});
-
-		// Take just the top 5 elements
-		if (this.data.length > 5) {
-			this.data = this.data.splice(0, 5);
+        // Take just the top 5 elements
+        if (this.data.length > 5) {
+            this.data = this.data.splice(0, 5);
         }
     },
-    getScores: function() {
-		return this.data;
-	},
+    getScores: function () {
+        return this.data;
+    },
 
-	saveScores: function() {
-		localStorage.setItem('scoreboard', this.data);
-	},
+    saveScores: function () {
+        localStorage.setItem('scoreboard', this.data);
+    },
 
-	loadScores: function() {
-		return localStorage.getItem('scoreboard');
+    loadScores: function () {
+        return localStorage.getItem('scoreboard');
     },
 }
 
@@ -112,7 +111,7 @@ function spin(slotMachine) {
         }
 
         // Setting the score slot value minus the round bet value
-        playersScore.innerHTML = getDigits(playersScoreValue - roundValue);
+        playersScore.innerHTML = padNumber(playersScoreValue - roundValue);
         // Get score results from this round
         game(slotMachine, playersScore);
 
@@ -142,7 +141,7 @@ function game(slotMachine, playersScore) {
     // Set time out to wait the result of the 3 spins
     setTimeout(function () {
         // Get round result
-        playersScore.innerHTML = getDigits(Number(playersScore.innerHTML) + getResult(roundResult));
+        playersScore.innerHTML = padNumber(Number(playersScore.innerHTML) + getResult(roundResult));
     }, 3001)
 
 }
@@ -151,129 +150,122 @@ function game(slotMachine, playersScore) {
 function getResult(result) {
     var roudScoreSlot = document.getElementById("round-score");
     var roundScore;
+    function containsAction(action, times) {
+        if (times === undefined) {
+            return result.includes(action);
+        }
+        if (countInArray(result, action) === times) {
+            return true;
+        }
+        return false;
+    }
 
-    if (result.includes("mask")) {
-        // 3 masks
-        if (countInArray(result, "mask") === 3) {
-            roundScore = 500;
-            console.log("Wow, 3 masks! Is that even possible?!");
+    function setRoundScore(value, message) {
+        roundScore = value;
+        if (message) {
+            console.log(message);
+        }
+    }
 
-            // 2 masks
-        } else if (countInArray(result, "mask") === 2) {
-            roundScore = 200;
-            console.log("Wow, 2 masks! Is that even possible?!");
+    function actionIndex() {
+        for (i = 0; i < arguments.length; i++) {
+            if (arguments[i][0] !== result[arguments[i][1]]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-            //Mask and hand-wash and alcool scenarios
-        } else if (result.includes("hand-wash") && result.includes("alcool") ||
-            (countInArray(result, "hand-wash") == 2 || countInArray(result, "alcool") == 2)) {
-            if (result[0] === "hand-wash" && result[1] === "alcool" && result[2] === "mask") {
-                roundScore = 100;
-                console.log("Wow, 2 masks! Is that even possible?!");
+    // Contains mask scenarios
+    if (containsAction("mask")) {
+
+        if (containsAction("mask", 3)) {
+            setRoundScore(500, "Wow, 3 masks! Is that even possible?!");
+        } else if (containsAction("mask", 2)) {
+            setRoundScore(200, "Wow, 2 masks! Is that even possible?!");
+        } else if ((containsAction("hand-wash") && containsAction("alcool")) ||
+            (containsAction("hand-wash", 2) || containsAction("alcool", 2))) {
+
+            if (actionIndex(["hand-wash", 0], ["alcool", 1], ["mask", 2])) {
+                setRoundScore(100, "Wow, 2 masks! Is that even possible?!");
             } else {
-                roundScore = 50;
-                console.log("MEGA BONUS COMBO!");
+                setRoundScore(50, "MEGA BONUS COMBO!");
             }
 
-            //Mask and hand-wash/alcool scenarios
-        } else if (result.includes("hand-wash") || result.includes("alcool")) {
-            if (result[0] === "mask") {
-                roundScore = 30;
-                console.log("Very well protected by the mask");
+        } else if (containsAction("hand-wash") || containsAction("alcool")) {
+            if (actionIndex(["mask",0])) {
+                setRoundScore(30, "Very well protected by the mask");
             } else {
-                roundScore = 20;
-                console.log("Well protected by the mask");
+                setRoundScore(20, "Well protected by the mask");
             }
         }
         // Mask and bad actions scenario
         else {
-            if (result.includes["hug"]) {
-                roundScore = (countInArray(result, "hug") === 2) ? 0.5 : 4;
-                console.log("Oh no! Using the mask but not respecting social distance");
-            } else if (result[1] === "mask" || result[0] === "mask") {
-                roundScore = 10;
-                console.log("Protected by the mask");
+            if (containsAction("hug")) {
+                setRoundScore((actionIndex(["hug", 2]) ? 0.5 : 4), "Oh no! Using the mask but not respecting social distance");
+            } else if (actionIndex("mask", 1) || actionIndex("mask", 0)) {
+                setRoundScore(10, "Protected by the mask");
             } else {
-                roundScore = 4;
-                console.log("Protected by the mask");
+                setRoundScore(4, "Protected by the mask");
             }
-
         }
+
     } else {
 
         // Always lose slot scenarios
-        if (result.includes("hug") || result[0] === "hand-to-face" || result[2] === "cough") {
-            roundScore = 0;
-            console.log("Always loses: social distance | start with hand-to-face | finish with cough");
+        if (containsAction("hug") || actionIndex(["hand-to-face", 0]) || actionIndex(["cough", 2])) {
+            setRoundScore(0, "Always loses: social distance | start with hand-to-face | finish with cough");
 
             // Only good slots scenarios
-        } else if (!result.includes("cough") && !result.includes("hand-to-face")) {
-            // All equal
+        } else if (!containsAction("cough") && !containsAction("hand-to-face")) {
+
             if (result[0] === result[1] === result[2]) {
-                roundScore = 10;
-                console.log("Bonus combination");
-                // Mega bonus combination
-            } else if (result[0] === "hand-wash" && result[1] === "hand-wash" && result[2] === "alcool") {
-                roundScore = 20;
-                console.log("Mega bonus combination");
-                // Any combo wash-hands + alcool
+                setRoundScore(10,"Bonus combination");
+            } else if (actionIndex(["hand-wash",0], ["hand-wash", 1], ["alcool", 2])) {
+                setRoundScore(20, "Mega bonus combination");
             } else {
-                roundScore = 5;
-                console.log("Combo wash hands and alcool (does it ever get here?");
+                setRoundScore(5, "Combo wash hands and alcool (does it ever get here?");
             }
 
             // Hand-to-face scenarios  
-        } else if (result.includes("hand-to-face") && !result.includes("cough")) {
-            // If 2x hand to face
-            if (result[1] === result[2]) {
-                roundScore = 0;
-                console.log("2x hand-to-face");
+        } else if (containsAction("hand-to-face") && !containsAction("cough")) {
 
-                // If the other slots are alcool and hand-wash
+            if (containsAction("hand-to-face", 2)) {
+                setRoundScore(0, "2x hand-to-face");
             } else {
-                roundScore = (result[1] === "hand-to-face") ? 4 : 0.5;
-                console.log("Combo 2x alcool/hand-wash");
+                setRoundScore((actionIndex(["hand-to-face",1]) ? 4 : 0.5), "Combo 2x alcool/hand-wash");
             }
 
             // Cough scenarios
-        } else if (result.includes("cough")) {
-            // If hand-to-face comes after cough
-            if ((result[0] === "cough" && result[1] === "hand-to-face") ||
-                (result[1] === "cough" && result[2] === "hand-to-face")) {
-                roundScore = 0;
-                console.log("If hand-to-face comes after cough you lose");
+        } else if (containsAction("cough")) {
 
-                // If alcool and/or hand-wash with cough
-            } else if (result.includes("hand-wash") || result.includes("alcool")) {
-                if (result.includes("hand-wash") && result.includes("alcool")) {
-                    roundScore = 5;
-                    console.log("Result includes hand-wash and alcool");
-                } else if (countInArray(result, "hand-wash") == 2 || countInArray(result, "alcool") == 2) {
-                    roundScore = 4;
-                    console.log("Result includes 2 hand-wash or alcool");
+            if (actionIndex(["cough",0],["hand-to-face", 1])  || actionIndex(["cough",1],["hand-to-face", 2])) {
+                setRoundScore(0, "If hand-to-face comes after cough you lose");
+            } else if (containsAction("hand-wash") || containsAction("alcool")) {
 
-                    // If alcool or hand-wash appears after cough
+                if (containsAction("hand-wash") && containsAction("alcool")) {
+                    setRoundScore(5, "Result includes hand-wash and alcool");
+                } else if (containsAction("hand-wash", 2)  || containsAction("alcool",2)) {
+                    setRoundScore(4, "Result includes 2 hand-wash or alcool");
                 } else {
-                    roundScore = 2;
-                    console.log("Result includes hand-wash or alcool");
+                    setRoundScore(2, "Result includes hand-wash or alcool");
                 }
 
-
             } else {
-                console.log(`No case was met`);
-                roundScore = 0.5;
+                setRoundScore(0.5,"No case was met");
             }
         }
     }
     console.log(`Round score ${roundScore}`);
     // Multiply the round value by bet multiplier to get final round result
     roundScore = roundScore * slotMachine.betMultiplierValue * slotMachine.betMainValue;
-    roudScoreSlot.innerHTML = getDigits(roundScore);
+    roudScoreSlot.innerHTML = padNumber(roundScore);
     return roundScore;
 }
 
 /* ------------------------------------------------ Helper functions */
 
-function getDigits(num, digits) {
+function padNumber(num, digits) {
     digits = digits || 5;
     num = String(num);
     var zerosToAdd = digits - num.length;
@@ -283,10 +275,10 @@ function getDigits(num, digits) {
     return num;
 }
 
-function countInArray(array, what) {
+function countInArray(array, string) {
     var count = 0;
     for (var i = 0; i < array.length; i++) {
-        if (array[i] === what) {
+        if (array[i] === string) {
             count++;
         }
     }
