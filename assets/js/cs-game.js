@@ -1,4 +1,11 @@
 var slotMachine = {
+    smallScreen: function () {
+        if (window.innerWidth < 768) {
+            console.log("phone mode activated");
+            return true;
+        }
+        return false;
+    },
     // Bring information given at index page to the game
     setGame: function () {
         var playersScore = document.getElementById("players-score");
@@ -138,11 +145,12 @@ function spin(slotMachine) {
         playersScore.innerHTML = padNumber(playersScoreValue - roundValue);
         slotMachine.getSlotActions();
         slotMachine.slotPositions.setSlotPositions();
+        var screenProportion = (slotMachine.smallScreen()) ? 2 : 1;
         // Animating slots
         for (i = 1; i <= 3; i++) {
-            var position = slotMachine.rotation * i + slotMachine.slotPositions["slot" + i];
-            $("#slot-" + i).animate({ backgroundPositionY: position }, slotMachine.rotationTime * i);
-            $("#slot-" + i).animate({ backgroundPositionY: slotMachine.slotPositions["slot" + i] }, 0);
+            var position = (slotMachine.rotation * i + slotMachine.slotPositions["slot" + i]);
+            $("#slot-" + i).animate({ backgroundPositionY: position / screenProportion }, slotMachine.rotationTime * i);
+            $("#slot-" + i).animate({ backgroundPositionY: slotMachine.slotPositions["slot" + i] / screenProportion }, 0);
         }
 
         // Set round result after 3 slots rotated
