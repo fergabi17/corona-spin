@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab+Highlight:wght@700&display=swap');
 
 body{
-    background-image: url("images/background.png");
+    background-image: url("../images/background.png");
 }
 
 .header {
@@ -19,7 +19,7 @@ body{
  /* --------------------------------------------------------- SLOT MACHINE */
 
  .slots-container{
-    background-image: url("images/slots-background.png");
+    background-image: url("../images/slot-machine/slots-background.png");
     padding: 0;
 }
 
@@ -44,46 +44,11 @@ body{
 background: linear-gradient(180deg, rgba(220,220,233,1) 0%, rgba(220,220,233,0.4629202022605917) 20%, rgba(220,220,233,0) 50%, rgba(220,220,233,0.42930675688244047) 80%, rgba(220,220,233,1) 100%);
 }
 
-.hand-wash{
-    background-image: url("hand-wash.png");
-    transition: all 10s ease-in-out;
-    -moz-transition: all 10s ease-in-out;
-    -webkit-transition: all 10s ease-in-out;
-}
 
-.hug{
-    background-image: url("hug.png");
-    transition: all 10s ease-in-out;
-    -moz-transition: all 10s ease-in-out;
-    -webkit-transition: all 10s ease-in-out;
-}
-
-.cough{
-    background-image: url("cough.png");
-    transition: all 10s ease-in-out;
-    -moz-transition: all 10s ease-in-out;
-    -webkit-transition: all 10s ease-in-out;
-}
-
-.hand-to-face{
-    background-image: url("hand-to-face.png");
-    transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -webkit-transition: all .5s ease-in-out;
-}
-
-.alcool{
-    background-image: url("alcool.png");
-    transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -webkit-transition: all .5s ease-in-out;
-}
-
-.mask{
-    background-image: url("mask.png");
-    transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -webkit-transition: all .5s ease-in-out;
+.spining{
+    background-image: url("../images/slot-machine/spining.png");
+    background-repeat: repeat-y;
+    background-position-y: -700px;
 }
 
 /* ---------- Slots for phones */
@@ -99,11 +64,11 @@ background: linear-gradient(180deg, rgba(220,220,233,1) 0%, rgba(220,220,233,0.4
 
  /* --------------------------------------------------------- SCORE SLOTS */
 .score-background{
-    background-image: url("images/score-background.png");
+    background-image: url("../images/slot-machine/score-background.png");
 }
 
 .slot-machine-header{
-    background-image: url("assets/arrow-01.png");
+    background-image: url("../images/slot-machine/arrow-01.png");
 }
 
 .score-info-box{

@@ -4,6 +4,17 @@ var slotMachine = {
         var playersScore = document.getElementById("players-score");
         playersScore.innerHTML = padNumber(window.sessionStorage.initialScore);
     },
+    betMainValue: 2,
+    betMultiplierValue: 1,
+    // Change the betMultiplierValue in this object and in the html
+    betMultiplier: function (multiplier) {
+        this.betMultiplierValue = Number(multiplier);
+        // Make this multiplier the only one with bet-multiplier-active class
+        $(".bet-multiplier-active").removeClass("bet-multiplier-active");
+        $("#betx" + multiplier).addClass("bet-multiplier-active");
+        $("#initial-bet-value").html(this.betMainValue * multiplier);
+    },
+
     slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotPrimeActions: ["hug", "cough", "mask", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotActions: this.slotMainActions,
@@ -16,15 +27,39 @@ var slotMachine = {
         }
         this.slotActions = this.slotMainActions;
     },
-    betMainValue: 2,
-    betMultiplierValue: 1,
-    // Change the betMultiplierValue in this object and in the html
-    betMultiplier: function (multiplier) {
-        this.betMultiplierValue = Number(multiplier);
-        // Make this multiplier the only one with bet-multiplier-active class
-        $(".bet-multiplier-active").removeClass("bet-multiplier-active");
-        $("#betx" + multiplier).addClass("bet-multiplier-active");
-        $("#initial-bet-value").html(this.betMainValue * multiplier);
+    // Needs to be divisible by 1200 (height of the image that spins on the slot)
+    rotation: 6000,
+    rotationTime: 1600,
+
+    actionPositions: {
+        "hug": 100,
+        "hand-wash": -100,
+        "cough": -300,
+        "hand-to-face": -500,
+        "mask": -700,
+        "alcool": -900
+    },
+
+    slotPositions: {
+        actionsResult: [],
+        slot1: -100,
+        slot2: -700,
+        slot3: -700,
+        setSlotPositions: function () {
+            this.actionsResult = [];
+            for (i = 1; i <= 3; i++) {
+                this["slot" + i] = this.getRandomSlotPosition();
+            }
+            console.log(this.actionsResult);
+        },
+        getRandomSlotPosition: function () {
+            // Getting a random number that can match a position in the slotActions array
+            var actionNumber = Math.floor(Math.random() * slotMachine.slotActions.length);
+            // Adding the action result into the result array
+            var action = slotMachine.slotActions[actionNumber];
+            this.actionsResult.push(action);
+            return slotMachine.actionPositions[action];
+        }
     }
 }
 
@@ -67,17 +102,14 @@ function endGame(leaderboard) {
     console.log(scores);
 }
 
-// Getting information to start game
 function startGame() {
     var playersName = document.getElementById("players-name").value;
     var playersYear = Number(document.getElementById("players-year").value);
     var currentYear = new Date().getFullYear();
 
-    if (playersYear != "NaN" && playersYear > 1900 && playersYear < currentYear) {
+    if (playersYear > 1900 && playersYear < currentYear) {
         var playersAge = currentYear - playersYear;
         var initialScore = 120 - playersAge;
-        alert(`Hello ${playersName}! Your age is ${playersAge}.\n
-                Your initial score will be ${initialScore}`);
         window.sessionStorage.setItem("playersName", playersName);
         window.sessionStorage.setItem("playersAge", playersAge);
         window.sessionStorage.setItem("initialScore", initialScore);
@@ -87,69 +119,45 @@ function startGame() {
     }
 }
 
-// Spining slots
 function spin(slotMachine) {
-    // Change the slot actions to get a chance to get the mask
-    slotMachine.getSlotActions();
+    var roundScoreSlot = document.getElementById("round-score");
     var playersScore = document.getElementById("players-score");
     var playersScoreValue = Number(playersScore.innerHTML);
     // Bet for this round
     var roundValue = slotMachine.betMultiplierValue * slotMachine.betMainValue;
 
-    if (roundValue > playersScoreValue) {
+    if (playersScoreValue < roundValue) {
         if (playersScoreValue < slotMachine.betMainValue) {
             alert("Game Over");
         } else {
             alert("You don't have enough points for this bet");
         }
     } else {
-        // Loop to clear all slots from their actions
-        for (i = 0; i <= 3; i++) {
-            for (a = 0; a <= slotMachine.slotPrimeActions.length; a++) {
-                $("#slot-" + (i + 1)).removeClass(slotMachine.slotPrimeActions[a]);
-            }
+        roundScoreSlot.innerHTML = "-----";
+        // Players score after bet
+        playersScore.innerHTML = padNumber(playersScoreValue - roundValue);
+        slotMachine.getSlotActions();
+        slotMachine.slotPositions.setSlotPositions();
+        // Animating slots
+        for (i = 1; i <= 3; i++) {
+            var position = slotMachine.rotation * i + slotMachine.slotPositions["slot" + i];
+            $("#slot-" + i).animate({ backgroundPositionY: position }, slotMachine.rotationTime * i);
+            $("#slot-" + i).animate({ backgroundPositionY: slotMachine.slotPositions["slot" + i] }, 0);
         }
 
-        // Setting the score slot value minus the round bet value
-        playersScore.innerHTML = padNumber(playersScoreValue - roundValue);
-        // Get score results from this round
-        game(slotMachine, playersScore);
-
-    }
-}
-
-// Game actions for each spin
-function game(slotMachine, playersScore) {
-    // Result with the 3 actions for this round
-    var roundResult = [];
-
-    // Loop to get random results for slots
-    for (i = 0; i < 3; i++) {
-        getSlotAction(i, (i + 1) * 1000);
-    }
-
-    function getSlotAction(i, time) {
+        // Set round result after 3 slots rotated
         setTimeout(function () {
-            // Getting a random number that can match a position in the slotActions array
-            var actionNumber = Math.floor(Math.random() * slotMachine.slotActions.length);
-            $("#slot-" + (i + 1)).addClass(slotMachine.slotActions[actionNumber]);
-            // Adding the action result into the result array
-            roundResult.push(slotMachine.slotActions[actionNumber]);
-        }, time);
+            var result = getResult(slotMachine.slotPositions.actionsResult) * roundValue;
+            roundScoreSlot.innerHTML = padNumber(result);
+            playersScore.innerHTML = padNumber(Number(playersScore.innerHTML) + result);
+        }, slotMachine.rotationTime * 3)
     }
-
-    // Set time out to wait the result of the 3 spins
-    setTimeout(function () {
-        // Get round result
-        playersScore.innerHTML = padNumber(Number(playersScore.innerHTML) + getResult(roundResult));
-    }, 3001)
-
 }
 
 // Checks the result to get the round score
 function getResult(result) {
-    var roudScoreSlot = document.getElementById("round-score");
     var roundScore;
+
     function containsAction(action, times) {
         if (times === undefined) {
             return result.includes(action);
@@ -193,7 +201,7 @@ function getResult(result) {
             }
 
         } else if (containsAction("hand-wash") || containsAction("alcool")) {
-            if (actionIndex(["mask",0])) {
+            if (actionIndex(["mask", 0])) {
                 setRoundScore(30, "Very well protected by the mask");
             } else {
                 setRoundScore(20, "Well protected by the mask");
@@ -220,11 +228,11 @@ function getResult(result) {
         } else if (!containsAction("cough") && !containsAction("hand-to-face")) {
 
             if (result[0] === result[1] === result[2]) {
-                setRoundScore(10,"Bonus combination");
-            } else if (actionIndex(["hand-wash",0], ["hand-wash", 1], ["alcool", 2])) {
+                setRoundScore(10, "Bonus combination");
+            } else if (actionIndex(["hand-wash", 0], ["hand-wash", 1], ["alcool", 2])) {
                 setRoundScore(20, "Mega bonus combination");
             } else {
-                setRoundScore(5, "Combo wash hands and alcool (does it ever get here?");
+                setRoundScore(5, "Combo wash hands and alcool");
             }
 
             // Hand-to-face scenarios  
@@ -233,33 +241,30 @@ function getResult(result) {
             if (containsAction("hand-to-face", 2)) {
                 setRoundScore(0, "2x hand-to-face");
             } else {
-                setRoundScore((actionIndex(["hand-to-face",1]) ? 4 : 0.5), "Combo 2x alcool/hand-wash");
+                setRoundScore((actionIndex(["hand-to-face", 1]) ? 4 : 0.5), "Combo 2x alcool/hand-wash");
             }
 
             // Cough scenarios
         } else if (containsAction("cough")) {
 
-            if (actionIndex(["cough",0],["hand-to-face", 1])  || actionIndex(["cough",1],["hand-to-face", 2])) {
+            if (actionIndex(["cough", 0], ["hand-to-face", 1]) || actionIndex(["cough", 1], ["hand-to-face", 2])) {
                 setRoundScore(0, "If hand-to-face comes after cough you lose");
             } else if (containsAction("hand-wash") || containsAction("alcool")) {
 
                 if (containsAction("hand-wash") && containsAction("alcool")) {
                     setRoundScore(5, "Result includes hand-wash and alcool");
-                } else if (containsAction("hand-wash", 2)  || containsAction("alcool",2)) {
+                } else if (containsAction("hand-wash", 2) || containsAction("alcool", 2)) {
                     setRoundScore(4, "Result includes 2 hand-wash or alcool");
                 } else {
                     setRoundScore(2, "Result includes hand-wash or alcool");
                 }
 
             } else {
-                setRoundScore(0.5,"No case was met");
+                setRoundScore(0.5, "No case was met");
             }
         }
     }
     console.log(`Round score ${roundScore}`);
-    // Multiply the round value by bet multiplier to get final round result
-    roundScore = roundScore * slotMachine.betMultiplierValue * slotMachine.betMainValue;
-    roudScoreSlot.innerHTML = padNumber(roundScore);
     return roundScore;
 }
 
