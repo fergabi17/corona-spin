@@ -9,7 +9,13 @@ var slotMachine = {
     // Bring information given at index page to the game
     setGame: function () {
         var playersScore = document.getElementById("players-score");
-        playersScore.innerHTML = padNumber(window.sessionStorage.initialScore);
+        var playersName = document.getElementById("players-name");
+        if (playersScore){
+            playersScore.innerHTML = padNumber(window.sessionStorage.initialScore);
+            playersName.innerHTML = window.sessionStorage.playersName;
+            return;
+        }
+        window.location.href = "index.html";
     },
     betMainValue: 2,
     betMultiplierValue: 1,
@@ -22,7 +28,7 @@ var slotMachine = {
         $("#initial-bet-value").html(this.betMainValue * multiplier);
     },
 
-    slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
+    slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "hand-to-face"],
     slotPrimeActions: ["hug", "cough", "mask", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotActions: this.slotMainActions,
     // Decide if the array will include the mask slot according to milliseconds
@@ -116,7 +122,7 @@ function startGame() {
 
     if (playersYear > 1900 && playersYear < currentYear) {
         var playersAge = currentYear - playersYear;
-        var initialScore = 120 - playersAge;
+        var initialScore = (playersAge < 90) ? (100 - playersAge) : 10;
         window.sessionStorage.setItem("playersName", playersName);
         window.sessionStorage.setItem("playersAge", playersAge);
         window.sessionStorage.setItem("initialScore", initialScore);
@@ -140,7 +146,7 @@ function spin(slotMachine) {
             alert("You don't have enough points for this bet");
         }
     } else {
-        roundScoreSlot.innerHTML = "-----";
+        roundScoreSlot.innerHTML = "------";
         // Players score after bet
         playersScore.innerHTML = padNumber(playersScoreValue - roundValue);
         slotMachine.getSlotActions();
@@ -279,7 +285,7 @@ function getResult(result) {
 /* ------------------------------------------------ Helper functions */
 
 function padNumber(num, digits) {
-    digits = digits || 5;
+    digits = digits || 8;
     num = String(num);
     var zerosToAdd = digits - num.length;
     for (i = 0; i < zerosToAdd; i++) {

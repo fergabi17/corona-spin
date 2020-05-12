@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Phone view -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.5.0.js"
         integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
-    
+
 </head>
 
 <body onload="slotMachine.setGame()">
 
     <header>
-        <div class="row no-gutters">
+        <div class="row">
             <div class="col-12 col-xl-8 offset-xl-2 header">
                 <div class="game-name text-center">Corona Spin Game</div>
                 <nav>
@@ -34,16 +36,28 @@
     </header>
 
     <section>
-        <div class="row no-gutters">
+        <div class="row">
             <div class="col-12 col-xl-8 offset-xl-2 content">
-                
+
                 <div class="info-box text-center">
                     <!-- ***************************************** SLOTS -->
                     <div class="row">
                         <div class="col-12 slots-container">
-                            <div id="slot-1" class="col-4 slots spining"><div class="slot-lid"></div></div>
-                            <div id="slot-2" class="col-4 slots spining"><div class="slot-lid"></div></div>
-                            <div id="slot-3" class="col-4 slots spining"><div class="slot-lid"></div></div>
+                            <div class="col-12 slots-header">
+                                <div class="arrow-container">
+                                    <div class="arrow arrow1"></div>
+                                    <div class="arrow arrow2"></div>
+                                </div>
+                            </div>
+                            <div id="slot-1" class="col-4 slots spining">
+                                <div class="slot-lid"></div>
+                            </div>
+                            <div id="slot-2" class="col-4 slots spining">
+                                <div class="slot-lid"></div>
+                            </div>
+                            <div id="slot-3" class="col-4 slots spining">
+                                <div class="slot-lid"></div>
+                            </div>
                         </div>
                     </div>
 
@@ -53,50 +67,75 @@
 
                             <div class="col-5 score-info-box">
                                 <p class="score-text">Round score:</p>
-                                <div class="score-slot">
-                                    <p id="round-score" class="score">00000</p>
-                                </div>
+                                <p id="round-score" class="score">00000000</p>
                             </div>
 
                             <div class="col-2 score-info-box">
-                                <div id="initial-bet-box">
-                                    <p id="initial-bet-value">2</p><p id="points-superscript">pt</p>
-                                </div>   
-                            </div>
-
-                            <div class="col-5 score-info-box">
-                                <p class="score-text">Player's score:</p>
-                                <div class="score-slot">
-                                    <p id="players-score" class="score">00000</p>
+                                <div class="initial-bet-box">
+                                    <p id="initial-bet-value">2</p>
+                                    <p id="points-superscript">pt</p>
                                 </div>
                             </div>
 
+                            <div class="col-5 score-info-box">
+                                <p class="score-text"><span id="players-name">Player</span>'s score:</p>
+                                <p id="players-score" class="score">00000</p>
+                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ********************************** BET MULTIPLIERS -->
+
                     <div class="row">
-                        <div class="col-12">
-                            <button class="bet-multiplier bet-multiplier-active" id="betx1"
-                                onclick="slotMachine.betMultiplier(1)">x1</button>
-                            <button class="bet-multiplier" id="betx2" onclick="slotMachine.betMultiplier(2)">x2</button>
-                            <button class="bet-multiplier" id="betx4" onclick="slotMachine.betMultiplier(4)">x4</button>
-                            <button class="bet-multiplier" id="betx6" onclick="slotMachine.betMultiplier(6)">x6</button>
-                            <button class="bet-multiplier" id="betx8" onclick="slotMachine.betMultiplier(8)">x8</button>
-                            <button class="bet-multiplier" id="betx10"
-                                onclick="slotMachine.betMultiplier(10)">x10</button>
+                        <div class="col-12 multiplier-background">
 
-                            <button class="spin-button" onclick="spin(slotMachine)">Spin</button>
+
+                            <div class="row">
+                                <div class="col-9">
+                                    <div class="col-12 text-right">
+                                        <!-- ********************************** BET MULTIPLIERS -->
+                                        <button class="bet-multiplier bet-multiplier-active push_button white" id="betx1"
+                                            onclick="slotMachine.betMultiplier(1)">x1</button>
+                                        <button class="bet-multiplier push_button white" id="betx2"
+                                            onclick="slotMachine.betMultiplier(2)">x2</button>
+                                        <button class="bet-multiplier push_button white" id="betx4"
+                                            onclick="slotMachine.betMultiplier(4)">x4</button>
+                                        <button class="bet-multiplier push_button white" id="betx6"
+                                            onclick="slotMachine.betMultiplier(6)">x6</button>
+                                        <button class="bet-multiplier push_button white" id="betx8"
+                                            onclick="slotMachine.betMultiplier(8)">x8</button>
+                                        <button class="bet-multiplier push_button white" id="betx10"
+                                            onclick="slotMachine.betMultiplier(10)">x10</button>
+                                    </div>
+
+                                    <!-- ********************************************* END GAME BUTTONS -->
+
+                                    <div class="col-12 text-right">
+                                        <button class="end-game-button push_button white" id="restart-game"
+                                            onClick="window.location.reload();">Restart
+                                            Game</button>
+                                        <button class="end-game-button push_button green" id="end-game" onclick="endGame(leaderboard)">Put this
+                                            score
+                                            on the
+                                            leaderboard</button>
+                                    </div>
+                                </div>
+
+
+                                <!-- ********************************************* SPIN BUTTON -->
+
+                                <div class="col-3 text-left">
+
+                                    <button class="spin-button push_button red"
+                                        onclick="spin(slotMachine)">SPIN</button>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ********************************************* END GAME BUTTONS -->
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="end-game" id="restart-game" onClick="window.location.reload();">Restart Game</button>
-                            <button class="end-game" id="end-game" onclick="endGame(leaderboard)">Put this score on the leaderboard</button>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>
