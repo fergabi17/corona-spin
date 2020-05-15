@@ -10,7 +10,7 @@ var slotMachine = {
     setGame: function () {
         var playersScore = document.getElementById("players-score");
         var playersName = document.getElementById("players-name");
-        if (playersScore){
+        if (window.sessionStorage.initialScore) {
             playersScore.innerHTML = padNumber(window.sessionStorage.initialScore);
             playersName.innerHTML = window.sessionStorage.playersName;
             return;
@@ -21,6 +21,7 @@ var slotMachine = {
     betMultiplierValue: 1,
     // Change the betMultiplierValue in this object and in the html
     betMultiplier: function (multiplier) {
+        sounds.button.play();
         this.betMultiplierValue = Number(multiplier);
         // Make this multiplier the only one with bet-multiplier-active class
         $(".bet-multiplier-active").removeClass("bet-multiplier-active");
@@ -28,7 +29,7 @@ var slotMachine = {
         $("#initial-bet-value").html(this.betMainValue * multiplier);
     },
 
-    slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "hand-to-face"],
+    slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "hand-to-face", "alcool"],
     slotPrimeActions: ["hug", "cough", "mask", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotActions: this.slotMainActions,
     // Decide if the array will include the mask slot according to milliseconds
@@ -42,7 +43,7 @@ var slotMachine = {
     },
     // Needs to be divisible by 1200 (height of the image that spins on the slot)
     rotation: 6000,
-    rotationTime: 1600,
+    rotationTime: 2500,
 
     actionPositions: {
         "hug": 100,
@@ -72,6 +73,36 @@ var slotMachine = {
             var action = slotMachine.slotActions[actionNumber];
             this.actionsResult.push(action);
             return slotMachine.actionPositions[action];
+        }
+    }
+}
+
+var sounds = {
+    spining: new Audio("assets/sounds/spining.wav"),
+    spinClick: new Audio("assets/sounds/spin_button_click.wav"),
+    spinRelease: new Audio("assets/sounds/spin_button_release.wav"),
+    slotStop: new Audio("assets/sounds/slot_stop.wav"),
+    button: new Audio("assets/sounds/button.wav"),
+    result1: new Audio("assets/sounds/result_1.wav"),
+    result2: new Audio("assets/sounds/result_2.wav"),
+    result3: new Audio("assets/sounds/result_3.mp3"),
+    result4: new Audio("assets/sounds/result_4.mp3"),
+    result5: new Audio("assets/sounds/result_5.mp3"),
+    playSoundForResult: function(result){
+        if(result === 0.5){
+            this.result1.play();
+        }
+        if(result > 0.5 && result < 5){
+            this.result2.play();
+        }
+        if(result >= 5 && result < 50){
+            this.result3.play();
+        }
+        if(result >= 50 && result < 500){
+            this.result4.play();
+        }
+        if(result === 500){
+            this.result5.play();
         }
     }
 }
@@ -133,12 +164,12 @@ function startGame() {
 }
 
 function spin(slotMachine) {
+    var spinButton = document.getElementById("spin");
     var roundScoreSlot = document.getElementById("round-score");
     var playersScore = document.getElementById("players-score");
     var playersScoreValue = Number(playersScore.innerHTML);
     // Bet for this round
     var roundValue = slotMachine.betMultiplierValue * slotMachine.betMainValue;
-
     if (playersScoreValue < roundValue) {
         if (playersScoreValue < slotMachine.betMainValue) {
             alert("Game Over");
@@ -146,24 +177,30 @@ function spin(slotMachine) {
             alert("You don't have enough points for this bet");
         }
     } else {
+        spinButton.disabled = true;
         roundScoreSlot.innerHTML = "------";
         // Players score after bet
         playersScore.innerHTML = padNumber(playersScoreValue - roundValue);
         slotMachine.getSlotActions();
         slotMachine.slotPositions.setSlotPositions();
         var screenProportion = (slotMachine.smallScreen()) ? 2 : 1;
+        sounds.spining.play();
         // Animating slots
         for (i = 1; i <= 3; i++) {
             var position = (slotMachine.rotation * i + slotMachine.slotPositions["slot" + i]);
             $("#slot-" + i).animate({ backgroundPositionY: position / screenProportion }, slotMachine.rotationTime * i);
             $("#slot-" + i).animate({ backgroundPositionY: slotMachine.slotPositions["slot" + i] / screenProportion }, 0);
+            setTimeout(function () { sounds.slotStop.play() }, slotMachine.rotationTime * i);
         }
 
         // Set round result after 3 slots rotated
         setTimeout(function () {
-            var result = getResult(slotMachine.slotPositions.actionsResult) * roundValue;
+            var result = getResult(slotMachine.slotPositions.actionsResult);
+            sounds.playSoundForResult(result);
+            result = result * roundValue;
             roundScoreSlot.innerHTML = padNumber(result);
             playersScore.innerHTML = padNumber(Number(playersScore.innerHTML) + result);
+            spinButton.disabled = false;
         }, slotMachine.rotationTime * 3)
     }
 }
@@ -209,9 +246,9 @@ function getResult(result) {
             (containsAction("hand-wash", 2) || containsAction("alcool", 2))) {
 
             if (actionIndex(["hand-wash", 0], ["alcool", 1], ["mask", 2])) {
-                setRoundScore(100, "Wow, 2 masks! Is that even possible?!");
+                setRoundScore(100, "MEGA BONUS COMBO!");
             } else {
-                setRoundScore(50, "MEGA BONUS COMBO!");
+                setRoundScore(50, "BONUS COMBO!");
             }
 
         } else if (containsAction("hand-wash") || containsAction("alcool")) {
