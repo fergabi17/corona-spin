@@ -1,0 +1,352 @@
+
+ /* --------------------------------------------------------- SLOTS */
+
+ .slots-container{
+    background-image: url("../images/slot-machine/slots-background.png");
+    padding: 0;
+}
+
+.slots-header {
+    width: 100%;
+    height: 20px;
+    text-align: center;
+}
+
+.arrow-container {
+    display: inline-block;
+    width: 600px;
+    height: inherit;
+    position: relative;
+}
+
+.arrow {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 150px;
+    height: 100px;
+    z-index: 1;
+    position: absolute;
+    top: 60px;
+}
+
+.arrow1{
+    left: 100px;
+    background-image: url("../images/slot-machine/arrow_purple.png");
+    transform: rotate(2deg);
+}
+
+.arrow2{
+    background-image: url("../images/slot-machine/arrow_green.png");
+    left: 300px;
+    transform: rotate(-2deg);
+}
+
+.slots {
+    background-color: #fff;
+    width: 200px;
+    height: 400px;
+    border-radius: 10px;
+    display: inline-block;
+    background-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.slot-lid{
+    width: 100%;
+    height: 100%;
+    border-left: 2px solid rgb(0, 0, 0);
+    border-right: 2px solid rgb(0, 0, 0);
+    border-bottom: 8px solid rgb(0, 0, 0);
+    border-top: 8px solid rgb(0, 0, 0);
+    border-radius: inherit;
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,1) 100%);
+
+}
+
+.spining{
+    background-image: url("../images/slot-machine/spining.png");
+    background-repeat: repeat-y;
+    background-position-y: -700px;
+}
+
+/* ---------- Slots for phones */
+@media only screen and (max-width: 767px) {
+    .slots-header {
+        height: 10px;
+    }
+    .arrow-container {
+        width: 300px;
+    }
+    .arrow {
+        width: 75px;
+        top: 20px;
+    }
+    .arrow1{
+        left: 50px;
+    }
+    .arrow2{
+        left: 150px;
+    }
+
+    .slots {
+        width: 100px;
+        height: 200px;
+        background-size: 100%;
+    }
+    .spining {
+        background-position-y: -350px;
+    } 
+}
+
+ /* --------------------------------------------------------- SCORE SLOTS */
+
+.score-background {
+    background: rgb(0, 0, 0);
+    border-top: 5px ridge grey;
+    padding: 0;
+}
+
+.score-info-box {
+    float: left;
+    text-align: center;
+    padding: 1% 0;
+    /*height: 100%;
+    width: 100%;*/
+}
+
+.score-text {
+    font-size: 14pt;
+    color: #fff;
+    font-family: 'VT323', monospace;
+    margin-bottom: 0;
+    line-height: 12pt;
+    position: relative;
+    top: 10px;
+}
+
+.score {
+    font-family: 'VT323', monospace;
+    font-size: 32pt;
+    color: rgb(111, 10, 129);
+}
+
+.initial-bet-box{
+    display: inline-block;
+    color: red;
+    background-color: #fff;
+    width: 70px;
+    height: 70px;
+    padding-top: 12px;
+}
+
+#initial-bet-value{
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 22pt;
+    display: inline;
+    margin: 0;
+}
+
+#points-superscript{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 8pt;
+    display: block;
+    position: relative;
+    bottom: 10px;
+}
+
+/* ---------- Score slots for phones */
+@media only screen and (max-width: 767px) {
+    .initial-bet-box {
+        width: 60px;
+        height: 60px;
+        padding-top: 12px;
+    }
+
+    .score {
+        font-size: 26pt;
+        /*height: 40px;*/
+    }
+    
+    #initial-bet-value{
+        font-size: 18pt;
+    }
+    
+    #points-superscript{
+        bottom: 10px;
+    }
+}
+
+/* ------------------------------------------------- BET MULTIPLIER */
+
+.multiplier-background {
+    border-top: 5px ridge grey;
+    padding: 1% 0;
+    
+}
+
+.bet-multiplier {
+    border: 1px outset #000;
+    background-color: #fff;
+    height:70px;
+    width:70px;
+    cursor:pointer;
+    box-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16pt;
+}
+
+.bet-multiplier-active {
+    bottom: -5px;
+    box-shadow:0 0px 0 !important;
+
+	-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	-moz-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+}
+
+.spin-button{
+    border-radius: 50%;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    width: 120px;
+    height: 120px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16pt;
+}
+
+.end-game-button {
+    border-radius: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16pt;
+    line-height: 12pt;
+    margin: 5px;
+    padding: 10px;
+}
+
+/* Push Buttons animations */
+
+.push_button {
+	position: relative;
+	text-decoration:none;
+	display: inline-block;
+	margin: 10px;
+}
+
+.push_button:before {
+	background:#f0f0f0;
+	background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D0D0D0), to(#f0f0f0));
+	
+	-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	-moz-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+}
+
+.push_button:active {
+	-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
+    top:5px;
+}
+
+.push_button:active:before{
+	top: -11px;
+    bottom: -5px;
+	content: "";
+}
+
+/* Push Buttons COLORS */
+
+.white {
+	text-shadow:-1px -1px 0 rgba(172, 172, 172, 0.1);
+	border:1px solid rgb(41, 40, 40);
+	background-image:-webkit-linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
+	background-image:-moz-linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
+	background-image:-ms-linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
+	background-image:-o-linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
+	background-image:linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
+	
+	-webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+	-moz-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+	box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+}
+
+.purple {
+	text-shadow:-1px -1px 0 rgba(172, 172, 172, 0.1);
+    border:1px solid rgb(41, 40, 40);
+    color: #fff;
+	background-image:-webkit-linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
+	background-image:-moz-linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
+	background-image:-ms-linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
+	background-image:-o-linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
+	background-image:linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
+	
+	-webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+	-moz-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+	box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+}
+
+.purple:hover {
+    background: rgb(111, 10, 129);
+	background-image:-webkit-linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));
+	background-image:-moz-linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));;
+	background-image:-ms-linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));
+	background-image:-o-linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));
+	background-image:linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));
+}
+
+.red {
+	text-shadow:-1px -1px 0 rgb(168, 65, 65);
+	background: rgb(210, 80, 80);
+	border:1px solid rgb(18, 5, 5);
+	
+	background-image:-webkit-linear-gradient(top, rgb(214, 75, 75), rgb(163, 19, 19));
+	background-image:-moz-linear-gradient(top, rgb(214, 75, 75), rgb(163, 19, 19));
+	background-image:-ms-linear-gradient(top, rgb(214, 75, 75), rgb(163, 19, 19));
+	background-image:-o-linear-gradient(top, rgb(214, 75, 75), rgb(163, 19, 19));
+	background-image:linear-gradient(to bottom, rgb(246, rgb(214, 75, 75)8), rgb(163, 19, 19));
+	
+	-webkit-border-radius:50%;
+	-moz-border-radius:50%;
+	border-radius:50%;
+	
+    -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+	-moz-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+	box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
+}
+
+.red:hover {
+	background: rgb(218, 70, 70);
+	background-image:-webkit-linear-gradient(top, rgb(172, 8, 8), rgb(90, 8, 8));
+	background-image:-moz-linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
+	background-image:-ms-linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
+	background-image:-o-linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
+	background-image:linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
+}
+
+/* ---------- Bet multiplier for phones */
+@media only screen and (max-width: 767px) {
+    .spin-button{
+        width: 75px;
+        height: 75px;
+        font-size: 12pt;
+        margin: 1px;
+    }
+
+    .bet-multiplier {
+        height:50px;
+        width:50px;
+        font-size: 12pt;
+    }
+
+    .end-game-button {
+        font-size: 12pt;
+        padding: 5px;
+    }
+}

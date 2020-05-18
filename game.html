@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/slot-machine.css">
     <!-- Phone view -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- JQuery -->
@@ -23,17 +26,22 @@
 
     <header>
         <div class="container">
-            <div class="row">
-                <div class="col-12  header">
-                    <div class="game-name text-center">Corona Spin Game</div>
+            <div class="row header">
+
+                <div class="col-12 header-line">
+                    <div class="logo"></div>
+                </div>
+                <div class="col-12 header-line">
                     <nav>
-                        <ul class="text-center">
+                        <!-- ***************************************** MENU -->
+                        <ul class="text-center menu">
                             <li><a href="how-to-play.html" class="menu-item">How to Play</a></li>
-                            <li><a href="index.html" class="menu-item active-menu">Game</a></li>
-                            <li><a href="leaderboard" class="menu-item">Leaderboard</a></li>
+                            <li id="active-menu"><a href="index.html" class="menu-item">New Game</a></li>
+                            <li><a href="leaderboard.html" class="menu-item">Leaderboard</a></li>
                         </ul>
                     </nav>
                 </div>
+
             </div>
         </div>
     </header>
@@ -43,7 +51,7 @@
             <div class="row">
                 <div class="col-12  content">
 
-                    <div class="info-box text-center">
+                    <div class="text-center">
                         <!-- ***************************************** SLOTS -->
                         <div class="row">
                             <div class="col-12 slots-container">
@@ -84,7 +92,8 @@
                                 </div>
 
                                 <div class="col-5 score-info-box">
-                                    <p class="score-text"><span id="players-name">Player</span>'s <br class="d-block d-md-none">score:</p>
+                                    <p class="score-text"><span id="players-name">Player</span>'s <br
+                                            class="d-block d-md-none">score:</p>
                                     <span id="players-score" class="score">00000</span>
                                 </div>
 
@@ -119,7 +128,7 @@
                                                 <!-- ********************************************* END GAME BUTTONS -->
 
                                                 <div class="col-12 p-0  text-center">
-                                                    <button class="end-game-button push_button green" id="end-game"
+                                                    <button class="end-game-button push_button purple" id="end-game"
                                                         onclick="endGame(leaderboard)">Put this
                                                         score
                                                         on the
