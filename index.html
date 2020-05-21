@@ -48,19 +48,47 @@
 
     <section>
         <div class="container">
-            <div class="row">
-                <div class="col-12 content">
-                    <div class="text-center">
-                        <p>What should we call you? <input type="text" id="players-name" maxlength="12"></p>
+            <div class="row content">
 
-                        <p>year you were born: <input type="text" id="players-year"></p>
-
-                        <button class="spin-button push_button red" onclick="startGame()">Play</button>
+                <div class="col-12 col-sm-6 player-info-box">
+                    <div class="player-info-background">
+                        <div class="player-info-item">
+                            <label for="players-name">What should we call you?</label>
+                            <br>
+                            <input type="text" id="players-name" name="players-name" maxlength="12" minlength="1"
+                                autocomplete="on" placeholder="Chuck Norris">
+                        </div>
+                        <div class="player-info-item">
+                            <label for="players-year">What year were you born?</label>
+                            <br>
+                            <input type="number" id="players-year" name="players-year" autocomplete="on"
+                                placeholder="1940">
+                        </div>
                     </div>
                 </div>
+                <div class="col-12 col-sm-6 player-info-box">
+                    <!-- ***************************************** START GAME -->
+                    <button class="play-button push_button red" onclick="startGame()">Play</button>
+                </div>
+
+
             </div>
         </div>
     </section>
+    <!-- ***************************************** FOOTER -->
+
+    <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 p-0">
+                        <p class="footer">
+                            Created by Fernanda Cetnarovski | <a href="https://github.com/fergabi17"
+                                target="_blank">GitHub</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     <!-- Script -->
     <script src="assets/js/cs-game.js"></script>
 </body>

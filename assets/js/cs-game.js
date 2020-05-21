@@ -29,7 +29,7 @@ var slotMachine = {
         $("#initial-bet-value").html(this.betMainValue * multiplier);
     },
 
-    slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "hand-to-face", "alcool"],
+    slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotPrimeActions: ["hug", "cough", "mask", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotActions: this.slotMainActions,
     // Decide if the array will include the mask slot according to milliseconds

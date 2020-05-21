@@ -113,8 +113,6 @@
     float: left;
     text-align: center;
     padding: 1% 0;
-    /*height: 100%;
-    width: 100%;*/
 }
 
 .score-text {
@@ -215,12 +213,11 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 16pt;
     margin: 4px 2px;
     width: 120px;
     height: 120px;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 16pt;
 }
 
 .end-game-button {
