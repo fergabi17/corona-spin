@@ -1,7 +1,6 @@
 var slotMachine = {
     smallScreen: function () {
         if (window.innerWidth < 768) {
-            console.log("phone mode activated");
             return true;
         }
         return false;
@@ -88,20 +87,20 @@ var sounds = {
     result3: new Audio("assets/sounds/result_3.mp3"),
     result4: new Audio("assets/sounds/result_4.mp3"),
     result5: new Audio("assets/sounds/result_5.mp3"),
-    playSoundForResult: function(result){
-        if(result === 0.5){
+    playSoundForResult: function (result) {
+        if (result === 0.5) {
             this.result1.play();
         }
-        if(result > 0.5 && result < 5){
+        if (result > 0.5 && result < 5) {
             this.result2.play();
         }
-        if(result >= 5 && result < 50){
+        if (result >= 5 && result < 50) {
             this.result3.play();
         }
-        if(result >= 50 && result < 500){
+        if (result >= 50 && result < 500) {
             this.result4.play();
         }
-        if(result === 500){
+        if (result === 500) {
             this.result5.play();
         }
     }
@@ -109,41 +108,49 @@ var sounds = {
 
 var leaderboard = {
     playersName: window.sessionStorage.getItem("playersName"),
+    playersAge: window.sessionStorage.getItem("playersAge"),
+    initialData:  {
+        list: [["Chuck Norris", padNumber(99999)],["Nanda", padNumber(5)]]
+    },
     getPlayersScore: function () {
         return Number(document.getElementById("players-score").innerHTML);
     },
 
-    data: [],
-    addScore: function (name, score) {
-        this.data.push([name, score]);
-        this.data.sort(function (a, b) {
-            return a[1] > b[1];
+    createScoreboard: function () {
+        window.localStorage.setItem("scoreboard", JSON.stringify(this.initialData));
+    },
+
+    addScore: function () {
+        if (!window.localStorage.scoreboard) {
+            this.createScoreboard();
+        }
+        var newScoreboard = JSON.parse(window.localStorage.scoreboard);
+        newScoreboard.list.push([leaderboard.playersName, padNumber(leaderboard.getPlayersScore())]);
+
+        newScoreboard.list.sort(function (a, b) {
+            return b[1] - a[1];
         });
 
-        // Take just the top 5 elements
-        if (this.data.length > 5) {
-            this.data = this.data.splice(0, 5);
+
+        if (newScoreboard.list.length > 10) {
+            newScoreboard.list.splice(10, 1);
         }
-    },
-    getScores: function () {
-        return this.data;
+
+        window.localStorage.setItem("scoreboard", JSON.stringify(newScoreboard));
+        console.log(newScoreboard);
     },
 
-    saveScores: function () {
-        localStorage.setItem('scoreboard', this.data);
+    printScores: function () {
+        if (!window.localStorage.scoreboard) {
+            this.createScoreboard();
+        }
+        document.getElementById("leaderboard").innerHTML = JSON.parse(window.localStorage.getItem('scoreboard')).list;
     },
 
-    loadScores: function () {
-        return localStorage.getItem('scoreboard');
-    },
-}
-
-function endGame(leaderboard) {
-    leaderboard.addScore(leaderboard.playersName, leaderboard.getPlayersScore());
-    leaderboard.saveScores();
-    // ***
-    var scores = leaderboard.loadScores();
-    console.log(scores);
+    endGame: function () {
+        this.addScore();
+        window.location.href = "leaderboard.html";
+    }
 }
 
 function startGame() {
@@ -315,7 +322,6 @@ function getResult(result) {
             }
         }
     }
-    console.log(`Round score ${roundScore}`);
     return roundScore;
 }
 
