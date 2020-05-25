@@ -110,7 +110,7 @@ var leaderboard = {
     playersName: window.sessionStorage.getItem("playersName"),
     playersAge: window.sessionStorage.getItem("playersAge"),
     initialData:  {
-        list: [["Chuck Norris", padNumber(99999)],["Nanda", padNumber(5)]]
+        list: [["Chuck Norris", padNumber(99999999)],["Nanda", padNumber(5)]]
     },
     getPlayersScore: function () {
         return Number(document.getElementById("players-score").innerHTML);
@@ -144,7 +144,16 @@ var leaderboard = {
         if (!window.localStorage.scoreboard) {
             this.createScoreboard();
         }
-        document.getElementById("leaderboard").innerHTML = JSON.parse(window.localStorage.getItem('scoreboard')).list;
+        var boardContent = JSON.parse(window.localStorage.getItem('scoreboard')).list;
+        var table = document.getElementById("leaderboard");
+
+        for (i=0; i < boardContent.length; i++){
+            var row = table.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = boardContent[i][0];
+            cell2.innerHTML = boardContent[i][1];
+        }  
     },
 
     endGame: function () {

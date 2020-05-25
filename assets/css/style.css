@@ -39,7 +39,6 @@ button:focus {
 .menu li{
     text-decoration: none;
     font-family: 'Itim', cursive;
-    
     display: inline-block;
     background: rgb(69,8,79);
     background: linear-gradient(180deg, rgba(69,8,79,1) 12%, rgba(111,8,129,1) 84%);
@@ -236,6 +235,43 @@ h3 {
     }
     h6 {
         margin-top: 30px;
+    }
+}
+
+/* ----------------------------------------- LEADERBOARD */
+
+.table-container {
+    background-color: rgba(35, 121, 3, 0.2);
+    margin: 50px;
+}
+
+#leaderboard {
+    width: 100%;
+}
+
+#leaderboard th, #leaderboard td{ 
+    padding: 5px 30px;
+}
+
+#leaderboard th {
+    height: 50px;
+    font-family: 'Itim', cursive;
+    font-size: 18pt;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: rgb(255, 255, 255);
+}
+
+#leaderboard td {
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14pt;
+    border-bottom: 0.5px dashed grey;
+}
+
+/* ---------- Leaderboard for phones */
+@media only screen and (max-width: 767px) {
+    .table-container {
+        margin: 20px;
     }
 }
 
