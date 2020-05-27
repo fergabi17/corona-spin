@@ -11,7 +11,7 @@ The leaderboard section is a local scoreboard that uses the local storage to ran
  
 ## UX
 
-![1](resources/ux/responsive.png)
+![1](resources/UX/responsive.png)
 
 
 ### PROJECT IDEA: Corona Spin Game
@@ -78,14 +78,14 @@ Find Here the wire frames for the information architecture:
 
 Website main colors:
 
-![Colors](resources/ux/colors.png)
+![Colors](resources/UX/colors.png)
 
 Website fonts:
-![Itim](resources/ux/font-Itim.png)
-![Roboto](resources/ux/font-Roboto.png)
-![Roboto](resources/ux/font-Roboto-Cond.png)
-![Roboto](resources/ux/font-Alfa.png)
-![Roboto](resources/ux/font-VT323.png)
+![Itim](resources/UX/font-Itim.png)
+![Roboto](resources/UX/font-Roboto.png)
+![Roboto](resources/UX/font-Roboto-Cond.png)
+![Roboto](resources/UX/font-Alfa.png)
+![Roboto](resources/UX/font-VT323.png)
 
 
 ### SURFACE
