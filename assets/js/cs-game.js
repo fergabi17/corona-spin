@@ -121,7 +121,7 @@ var leaderboard = {
     },
 
     addScore: function () {
-        if (!window.localStorage.scoreboard) {
+        if (!window.localStorage.scoreboard || window.localStorage.scoreboard === undefined) {
             this.createScoreboard();
         }
         var newScoreboard = JSON.parse(window.localStorage.scoreboard);
