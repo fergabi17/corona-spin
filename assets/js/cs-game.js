@@ -109,22 +109,22 @@ var sounds = {
 var leaderboard = {
     playersName: window.sessionStorage.getItem("playersName"),
     playersAge: window.sessionStorage.getItem("playersAge"),
-    initialData:  {
+    initialData: {
         list: [["Chuck Norris", padNumber(99999999)],["Nanda", padNumber(5)]]
     },
     getPlayersScore: function () {
         return Number(document.getElementById("players-score").innerHTML);
     },
 
-    createScoreboard: function () {
-        window.localStorage.setItem("scoreboard", JSON.stringify(this.initialData));
+    createLeaderboard: function () {
+        window.localStorage.setItem("leaderboard", JSON.stringify(this.initialData));
     },
 
     addScore: function () {
-        if (!window.localStorage.scoreboard || window.localStorage.scoreboard === undefined) {
-            this.createScoreboard();
+        if (!window.localStorage.leaderboard) {
+            this.createLeaderboard();
         }
-        var newScoreboard = JSON.parse(window.localStorage.scoreboard);
+        var newScoreboard = JSON.parse(window.localStorage.leaderboard);
         newScoreboard.list.push([leaderboard.playersName, padNumber(leaderboard.getPlayersScore())]);
 
         newScoreboard.list.sort(function (a, b) {
@@ -136,15 +136,14 @@ var leaderboard = {
             newScoreboard.list.splice(10, 1);
         }
 
-        window.localStorage.setItem("scoreboard", JSON.stringify(newScoreboard));
-        console.log(newScoreboard);
+        window.localStorage.setItem("leaderboard", JSON.stringify(newScoreboard));
     },
 
     printScores: function () {
-        if (!window.localStorage.scoreboard) {
-            this.createScoreboard();
+        if (!window.localStorage.leaderboard) {
+            this.createLeaderboard();
         }
-        var boardContent = JSON.parse(window.localStorage.getItem('scoreboard')).list;
+        var boardContent = JSON.parse(window.localStorage.getItem('leaderboard')).list;
         var table = document.getElementById("leaderboard");
 
         for (i=0; i < boardContent.length; i++){
