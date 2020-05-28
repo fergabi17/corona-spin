@@ -5,7 +5,11 @@ var slotMachine = {
         }
         return false;
     },
-    // Bring information given at index page to the game
+
+    /* 
+    * Bring players information given at index page 
+    * to the game page
+    */
     setGame: function () {
         var playersScore = document.getElementById("players-score");
         var playersName = document.getElementById("players-name");
@@ -16,13 +20,15 @@ var slotMachine = {
         }
         window.location.href = "index.html";
     },
+
     betMainValue: 2,
     betMultiplierValue: 1,
-    // Change the betMultiplierValue in this object and in the html
+    /* 
+    * Update the betMultiplierValue in this object and in the html
+    */
     betMultiplier: function (multiplier) {
         sounds.button.play();
         this.betMultiplierValue = Number(multiplier);
-        // Make this multiplier the only one with bet-multiplier-active class
         $(".bet-multiplier-active").removeClass("bet-multiplier-active");
         $("#betx" + multiplier).addClass("bet-multiplier-active");
         $("#initial-bet-value").html(this.betMainValue * multiplier);
@@ -31,7 +37,9 @@ var slotMachine = {
     slotMainActions: ["hug", "cough", "hand-wash", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotPrimeActions: ["hug", "cough", "mask", "alcool", "hand-to-face", "cough", "hand-wash", "alcool", "hand-to-face"],
     slotActions: this.slotMainActions,
-    // Decide if the array will include the mask slot according to milliseconds
+    /* 
+    * Get slot actions (Main or Prime) for this round according to milliseconds
+    */
     getSlotActions: function () {
         var time = new Date().getMilliseconds();
         if (time % 2 === 0 && time % 5 === 0) {
@@ -40,7 +48,8 @@ var slotMachine = {
         }
         this.slotActions = this.slotMainActions;
     },
-    // Needs to be divisible by 1200 (height of the image that spins on the slot)
+
+    // Rotation needs to be divisible by 1200 (height of the image that spins on the slot)
     rotation: 6000,
     rotationTime: 2500,
 
@@ -58,6 +67,9 @@ var slotMachine = {
         slot1: -100,
         slot2: -700,
         slot3: -700,
+        /*
+        * Update the positions of each slot
+        */
         setSlotPositions: function () {
             this.actionsResult = [];
             for (i = 1; i <= 3; i++) {
@@ -65,10 +77,12 @@ var slotMachine = {
             }
             console.log(this.actionsResult);
         },
+        /*
+         * Get a random number to match an action in the slotActions array,
+         * add this action to the actionsResult array
+         */
         getRandomSlotPosition: function () {
-            // Getting a random number that can match a position in the slotActions array
             var actionNumber = Math.floor(Math.random() * slotMachine.slotActions.length);
-            // Adding the action result into the result array
             var action = slotMachine.slotActions[actionNumber];
             this.actionsResult.push(action);
             return slotMachine.actionPositions[action];
@@ -120,6 +134,10 @@ var leaderboard = {
         window.localStorage.setItem("leaderboard", JSON.stringify(this.initialData));
     },
 
+    /*
+    * Get leaderboard information from local storage,
+    * add the new score sorting the first 10 
+    */
     addScore: function () {
         if (!window.localStorage.leaderboard) {
             this.createLeaderboard();
@@ -131,7 +149,6 @@ var leaderboard = {
             return b[1] - a[1];
         });
 
-
         if (newScoreboard.list.length > 10) {
             newScoreboard.list.splice(10, 1);
         }
@@ -139,6 +156,9 @@ var leaderboard = {
         window.localStorage.setItem("leaderboard", JSON.stringify(newScoreboard));
     },
 
+    /*
+    * Create a table with leaderboard scores
+    */
     printScores: function () {
         if (!window.localStorage.leaderboard) {
             this.createLeaderboard();
@@ -161,6 +181,10 @@ var leaderboard = {
     }
 }
 
+/*
+* Get players information, store it
+* in the session storage and load the game
+*/
 function startGame() {
     var playersName = document.getElementById("players-name").value;
     var playersYear = Number(document.getElementById("players-year").value);
@@ -178,13 +202,17 @@ function startGame() {
     }
 }
 
+/*
+* Actions for every time the spin button is clicked
+*/
 function spin(slotMachine) {
     var spinButton = document.getElementById("spin");
     var roundScoreSlot = document.getElementById("round-score");
     var playersScore = document.getElementById("players-score");
     var playersScoreValue = Number(playersScore.innerHTML);
-    // Bet for this round
     var roundValue = slotMachine.betMultiplierValue * slotMachine.betMainValue;
+
+    // Validate the value of the bet and players score
     if (playersScoreValue < roundValue) {
         if (playersScoreValue < slotMachine.betMainValue) {
             alert("Game Over");
@@ -210,7 +238,7 @@ function spin(slotMachine) {
 
         // Set round result after 3 slots rotated
         setTimeout(function () {
-            var result = getResult(slotMachine.slotPositions.actionsResult);
+            var result = getScore(slotMachine.slotPositions.actionsResult);
             sounds.playSoundForResult(result);
             result = result * roundValue;
             roundScoreSlot.innerHTML = padNumber(result);
@@ -220,8 +248,10 @@ function spin(slotMachine) {
     }
 }
 
-// Checks the result to get the round score
-function getResult(result) {
+/* 
+* Get the score according to array of actions
+*/
+function getScore(result) {
     var roundScore;
 
     function containsAction(action, times) {
@@ -277,7 +307,7 @@ function getResult(result) {
         else {
             if (containsAction("hug")) {
                 setRoundScore((actionIndex(["hug", 2]) ? 0.5 : 4), "Oh no! Using the mask but not respecting social distance");
-            } else if (actionIndex("mask", 1) || actionIndex("mask", 0)) {
+            } else if (actionIndex(["mask", 0]) || actionIndex(["mask", 1])) {
                 setRoundScore(10, "Protected by the mask");
             } else {
                 setRoundScore(4, "Protected by the mask");
@@ -293,7 +323,7 @@ function getResult(result) {
             // Only good slots scenarios
         } else if (!containsAction("cough") && !containsAction("hand-to-face")) {
 
-            if (result[0] === result[1] === result[2]) {
+            if (result[0] === result[1] && result[1] === result[2]) {
                 setRoundScore(10, "Bonus combination");
             } else if (actionIndex(["hand-wash", 0], ["hand-wash", 1], ["alcool", 2])) {
                 setRoundScore(20, "Mega bonus combination");
