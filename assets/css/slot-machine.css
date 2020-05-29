@@ -191,7 +191,6 @@
     height:70px;
     width:70px;
     cursor:pointer;
-    box-align: center;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 16pt;
 }
@@ -267,7 +266,7 @@
 	background-image:-moz-linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
 	background-image:-ms-linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
 	background-image:-o-linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
-	background-image:linear-gradient(top, rgb(252, 252, 252), rgb(201, 201, 201));
+	background-image:linear-gradient(to top, rgb(252, 252, 252), rgb(201, 201, 201));
 	
 	-webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
 	-moz-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
@@ -282,7 +281,7 @@
 	background-image:-moz-linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
 	background-image:-ms-linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
 	background-image:-o-linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
-	background-image:linear-gradient(top, rgb(111, 10, 129), rgb(75, 6, 87));
+	background-image:linear-gradient(to top, rgb(111, 10, 129), rgb(75, 6, 87));
 	
 	-webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
 	-moz-box-shadow:0 1px 0 rgba(0, 0, 0, 0.5) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset, 0 4px 0 rgb(37, 37, 37), 0 4px 2px rgba(43, 42, 42, 0.5);
@@ -295,7 +294,7 @@
 	background-image:-moz-linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));;
 	background-image:-ms-linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));
 	background-image:-o-linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));
-	background-image:linear-gradient(top, rgb(153, 14, 165), rgb(52, 5, 62));
+	background-image:linear-gradient(to top, rgb(153, 14, 165), rgb(52, 5, 62));
 }
 
 .red {
@@ -307,7 +306,7 @@
 	background-image:-moz-linear-gradient(top, rgb(214, 75, 75), rgb(163, 19, 19));
 	background-image:-ms-linear-gradient(top, rgb(214, 75, 75), rgb(163, 19, 19));
 	background-image:-o-linear-gradient(top, rgb(214, 75, 75), rgb(163, 19, 19));
-	background-image:linear-gradient(to bottom, rgb(246, rgb(214, 75, 75)8), rgb(163, 19, 19));
+	background-image:linear-gradient(to bottom, rgb(214, 75, 75), rgb(163, 19, 19));
 	
 	-webkit-border-radius:50%;
 	-moz-border-radius:50%;
@@ -324,7 +323,7 @@
 	background-image:-moz-linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
 	background-image:-ms-linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
 	background-image:-o-linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
-	background-image:linear-gradient(top, rgb(210, 80, 80), rgb(246, 108, 108));
+	background-image:linear-gradient(to top, rgb(210, 80, 80), rgb(246, 108, 108));
 }
 
 /* ---------- Bet multiplier for phones */
