@@ -55,7 +55,7 @@ Features:
 Slots:
 - Washing hands
 - Cough
-- Álcool
+- Alcohol
 - Hand to face
 - Not respecting social distance
 - Mask
@@ -83,9 +83,9 @@ Website main colors:
 Website fonts:
 ![Itim](resources/UX/font-Itim.png)
 ![Roboto](resources/UX/font-Roboto.png)
-![Roboto](resources/UX/font-Roboto-Cond.png)
-![Roboto](resources/UX/font-Alfa.png)
-![Roboto](resources/UX/font-VT323.png)
+![Roboto_Cond](resources/UX/font-Roboto-Cond.png)
+![Alfa](resources/UX/font-Alfa.png)
+![VT323](resources/UX/font-VT323.png)
 
 
 ### SURFACE
@@ -146,7 +146,7 @@ User Stories:
 - [Free sound](https://freesound.org/)
     - The Free Sound website was used as source for the sound effects of the slot machine.
 
-- [Jasmine] (https://jasmine.github.io/)
+- [Jasmine](https://jasmine.github.io/)
     - The project used JASMINE to correctly test the game functionalities.
 
 ## Testing
@@ -188,7 +188,7 @@ The git repository contains:
     - wireframes: website's wireframes created during the structure plan
 - spec contain a js file with tests for the slot machine, as well as the jasmine html page to show the tests results
  
-To deploy your own version of the website:
+To deploy a remote version of the website:
 - Have git installed
 - Visit the [repository]([GitHub](https://github.com/fergabi17/corona-spin/))
 - Click 'Clone or download' and copy the code for http
@@ -198,6 +198,14 @@ To deploy your own version of the website:
     - ```git clone https://github.com/fergabi17/corona-spin/```
 - When this completes you have your own version of the website
 - The website can be run by opening one of the index.html file within a web browser
+
+
+This website is hosted on github.com. To deploy your own version of the website:
+- Create a repository on github called corona-spin
+- On the repository page, click on settings
+- Scroll until the GitHub pages section
+- In the dropbox, select 'Master Branch' (or the branch you're using)
+- Wait a few minutes and your website will be deployed at https://"YOUR_USER".github.io/corona-spin/
 
 This website was developed in Visual Studio Code.
 
